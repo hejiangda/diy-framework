@@ -4,6 +4,7 @@ import (
 	"context"
 	"diy-framework/framework"
 	"fmt"
+	"net/http"
 	"time"
 )
 
@@ -24,7 +25,7 @@ func FooControllerHandler(ctx *framework.Context) error {
 
 		// 这里做具体的业务
 		time.Sleep(10 * time.Second)
-		ctx.Json(200, "ok")
+		ctx.SetOkStatus().Json("ok")
 
 		// 新的 goroutine 结束的时候通过一个 finish 通道告知父 goroutine
 		finish <- struct{}{}
@@ -32,17 +33,39 @@ func FooControllerHandler(ctx *framework.Context) error {
 
 	select {
 	case p := <-panicChan:
-		ctx.WriteMux().Lock()
-		defer ctx.WriteMux().Unlock()
-		ctx.Json(500, "panic")
+		ctx.WriterMux().Lock()
+		defer ctx.WriterMux().Unlock()
+		ctx.SetStatus(http.StatusInternalServerError).Json("panic")
 		fmt.Println(p)
 	case <-finish:
 		fmt.Println("finish")
 	case <-durationCtx.Done():
-		ctx.WriteMux().Lock()
-		defer ctx.WriteMux().Unlock()
-		ctx.Json(500, "time out")
-		ctx.SetTimeout()
+		ctx.WriterMux().Lock()
+		defer ctx.WriterMux().Unlock()
+		ctx.SetStatus(http.StatusInternalServerError).Json("time out")
+		ctx.SetHasTimeout()
 	}
+	return nil
+}
+
+func UserLoginController(ctx *framework.Context) error {
+	time.Sleep(10 * time.Second)
+	ctx.SetOkStatus().Json("ok, UserLoginController")
+	return nil
+}
+func SubjectDelController(ctx *framework.Context) error {
+	ctx.SetOkStatus().Json("ok, SubjectDelController")
+	return nil
+}
+func SubjectUpdateController(ctx *framework.Context) error {
+	ctx.SetOkStatus().Json("ok, SubjectUpdateController")
+	return nil
+}
+func SubjectListController(ctx *framework.Context) error {
+	ctx.SetOkStatus().Json("ok, SubjectListController")
+	return nil
+}
+func SubjectGetController(ctx *framework.Context) error {
+	ctx.SetOkStatus().Json("ok, SubjectGetController")
 	return nil
 }
