@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	hadeHttp "github.com/hejiangda/diy-framework/app/http"
 	"github.com/hejiangda/diy-framework/framework/gin"
 	"github.com/hejiangda/diy-framework/framework/middleware"
+	"github.com/hejiangda/diy-framework/framework/provider/app"
 	"github.com/hejiangda/diy-framework/framework/provider/demo"
 	"log"
 	"net/http"
@@ -16,11 +18,12 @@ import (
 func main() {
 	core := gin.New()
 	core.Bind(&demo.DemoServiceProvider{})
+	core.Bind(&app.HadeAppProvider{})
 
 	core.Use(middleware.Cost())
-	core.Use(middleware.Recovery())
-
-	registerRouter(core)
+	core.Use(gin.Recovery())
+	hadeHttp.Routes(core)
+	//registerRouter(core)
 	server := &http.Server{
 		Handler: core,
 		Addr:    ":8888",
