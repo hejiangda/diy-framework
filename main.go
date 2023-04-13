@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/hejiangda/diy-framework/framework/gin"
 	"github.com/hejiangda/diy-framework/framework/middleware"
+	"github.com/hejiangda/diy-framework/framework/provider/demo"
 	"log"
 	"net/http"
 	"os"
@@ -14,8 +15,11 @@ import (
 
 func main() {
 	core := gin.New()
+	core.Bind(&demo.DemoServiceProvider{})
+
 	core.Use(middleware.Cost())
 	core.Use(middleware.Recovery())
+
 	registerRouter(core)
 	server := &http.Server{
 		Handler: core,

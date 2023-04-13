@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/hejiangda/diy-framework/framework/gin"
+	"github.com/hejiangda/diy-framework/framework/provider/demo"
 	"time"
 )
 
@@ -56,9 +57,22 @@ func SubjectDelController(ctx *gin.Context) {
 func SubjectUpdateController(ctx *gin.Context) {
 	ctx.ISetOkStatus().IJson("ok, SubjectUpdateController")
 }
-func SubjectListController(ctx *gin.Context) {
-	ctx.ISetOkStatus().IJson("ok, SubjectListController")
-}
+
+//func SubjectListController(ctx *gin.Context) {
+//	ctx.ISetOkStatus().IJson("ok, SubjectListController")
+//}
 func SubjectGetController(ctx *gin.Context) {
 	ctx.ISetOkStatus().IJson("ok, SubjectGetController")
+}
+
+// 对应路由 /subject/list/all
+func SubjectListController(c *gin.Context) {
+	// 获取demo服务实例
+	demoService := c.MustMake(demo.Key).(demo.Service)
+
+	// 调用服务实例的方法
+	foo := demoService.GetFoo()
+
+	// 输出结果
+	c.ISetOkStatus().IJson(foo)
 }
