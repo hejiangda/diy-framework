@@ -1,71 +1,64 @@
 package main
 
 import (
-	"context"
-	"diy-framework/framework"
-	"fmt"
-	"net/http"
+	"github.com/hejiangda/diy-framework/framework/gin"
 	"time"
 )
 
-func FooControllerHandler(ctx *framework.Context) error {
-	durationCtx, cancel := context.WithTimeout(ctx.BaseContext(), time.Duration(1*time.Second))
-	// 这里记得当所有事情处理结束后调用 cancel，告知 durationCtx 的后续 Context 结束
-	defer cancel()
-	finish := make(chan struct{}, 1)
+//
+//func FooControllerHandler(ctx *gin.Context) error {
+//	durationCtx, cancel := context.WithTimeout(ctx.BaseContext(), time.Duration(1*time.Second))
+//	// 这里记得当所有事情处理结束后调用 cancel，告知 durationCtx 的后续 Context 结束
+//	defer cancel()
+//	finish := make(chan struct{}, 1)
+//
+//	panicChan := make(chan interface{}, 1)
+//
+//	go func() {
+//		defer func() {
+//			if p := recover(); p != nil {
+//				panicChan <- p
+//			}
+//		}()
+//
+//		// 这里做具体的业务
+//		time.Sleep(10 * time.Second)
+//		ctx.ISetOkStatus().IJson("ok")
+//
+//		// 新的 goroutine 结束的时候通过一个 finish 通道告知父 goroutine
+//		finish <- struct{}{}
+//	}()
+//
+//	select {
+//	case p := <-panicChan:
+//		ctx.WriterMux().Lock()
+//		defer ctx.WriterMux().Unlock()
+//		ctx.SetStatus(http.StatusInternalServerError).Json("panic")
+//		fmt.Println(p)
+//	case <-finish:
+//		fmt.Println("finish")
+//	case <-durationCtx.Done():
+//		ctx.WriterMux().Lock()
+//		defer ctx.WriterMux().Unlock()
+//		ctx.SetStatus(http.StatusInternalServerError).Json("time out")
+//		ctx.SetHasTimeout()
+//	}
+//	return nil
+//}
 
-	panicChan := make(chan interface{}, 1)
-
-	go func() {
-		defer func() {
-			if p := recover(); p != nil {
-				panicChan <- p
-			}
-		}()
-
-		// 这里做具体的业务
-		time.Sleep(10 * time.Second)
-		ctx.SetOkStatus().Json("ok")
-
-		// 新的 goroutine 结束的时候通过一个 finish 通道告知父 goroutine
-		finish <- struct{}{}
-	}()
-
-	select {
-	case p := <-panicChan:
-		ctx.WriterMux().Lock()
-		defer ctx.WriterMux().Unlock()
-		ctx.SetStatus(http.StatusInternalServerError).Json("panic")
-		fmt.Println(p)
-	case <-finish:
-		fmt.Println("finish")
-	case <-durationCtx.Done():
-		ctx.WriterMux().Lock()
-		defer ctx.WriterMux().Unlock()
-		ctx.SetStatus(http.StatusInternalServerError).Json("time out")
-		ctx.SetHasTimeout()
-	}
-	return nil
-}
-
-func UserLoginController(ctx *framework.Context) error {
+func UserLoginController(ctx *gin.Context) {
 	time.Sleep(10 * time.Second)
-	ctx.SetOkStatus().Json("ok, UserLoginController")
-	return nil
+	ctx.ISetOkStatus().IJson("ok, UserLoginController")
 }
-func SubjectDelController(ctx *framework.Context) error {
-	ctx.SetOkStatus().Json("ok, SubjectDelController")
-	return nil
+func SubjectDelController(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJson("ok, SubjectDelController")
 }
-func SubjectUpdateController(ctx *framework.Context) error {
-	ctx.SetOkStatus().Json("ok, SubjectUpdateController")
-	return nil
+func SubjectUpdateController(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJson("ok, SubjectUpdateController")
 }
-func SubjectListController(ctx *framework.Context) error {
-	ctx.SetOkStatus().Json("ok, SubjectListController")
-	return nil
+func SubjectListController(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJson("ok, SubjectListController")
 }
-func SubjectGetController(ctx *framework.Context) error {
-	ctx.SetOkStatus().Json("ok, SubjectGetController")
-	return nil
+func SubjectGetController(ctx *gin.Context) {
+	ctx.ISetOkStatus().IJson("ok, SubjectGetController")
 }

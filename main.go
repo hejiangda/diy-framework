@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"diy-framework/framework"
-	"diy-framework/framework/middleware"
+	"github.com/hejiangda/diy-framework/framework/gin"
+	"github.com/hejiangda/diy-framework/framework/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	core := framework.NewCore()
+	core := gin.New()
 	core.Use(middleware.Cost())
 	core.Use(middleware.Recovery())
 	registerRouter(core)
