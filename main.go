@@ -5,6 +5,9 @@ import (
 	"github.com/hejiangda/diy-framework/app/http"
 	"github.com/hejiangda/diy-framework/framework"
 	"github.com/hejiangda/diy-framework/framework/provider/app"
+	"github.com/hejiangda/diy-framework/framework/provider/config"
+	"github.com/hejiangda/diy-framework/framework/provider/distributed"
+	"github.com/hejiangda/diy-framework/framework/provider/env"
 	"github.com/hejiangda/diy-framework/framework/provider/kernel"
 )
 
@@ -13,6 +16,9 @@ func main() {
 	container := framework.NewHadeContainer()
 	// 绑定App服务提供者
 	container.Bind(&app.HadeAppProvider{})
+	container.Bind(&env.HadeEnvProvider{})
+	container.Bind(&distributed.LocalDistributedProvider{})
+	container.Bind(&config.HadeConfigProvider{})
 	// 后续初始化需要绑定的服务提供者...
 
 	// 将HTTP引擎初始化,并且作为服务提供者绑定到服务容器中

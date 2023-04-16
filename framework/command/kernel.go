@@ -6,11 +6,11 @@ import "github.com/hejiangda/diy-framework/framework/cobra"
 func AddKernelCommands(root *cobra.Command) {
 	root.AddCommand(DemoCommand)
 
-	//root.AddCommand(envCommand)
+	root.AddCommand(initEnvCommand())
 	//root.AddCommand(deployCommand)
 	//
 	//// cron
-	//root.AddCommand(initCronCommand())
+	root.AddCommand(initCronCommand())
 	//// cmd
 	//cmdCommand.AddCommand(cmdListCommand)
 	//cmdCommand.AddCommand(cmdCreateCommand)

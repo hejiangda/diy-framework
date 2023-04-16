@@ -5,6 +5,7 @@ import (
 	"github.com/hejiangda/diy-framework/framework"
 	"github.com/hejiangda/diy-framework/framework/cobra"
 	"github.com/hejiangda/diy-framework/framework/command"
+	"time"
 )
 
 // RunCommand is command
@@ -57,5 +58,7 @@ func RunCommand(container framework.Container) error {
 // 绑定业务的命令
 func AddAppCommand(rootCmd *cobra.Command) {
 	//  demo 例子
-	rootCmd.AddCommand(demo.InitFoo())
+	//rootCmd.AddCommand(demo.InitFoo())
+	//rootCmd.AddCronCommand("* * * * * *", demo.FooCommand)
+	rootCmd.AddDistributedCronCommand("foo_func_for_test", "*/5 * * * * *", demo.FooCommand, 2*time.Second)
 }
