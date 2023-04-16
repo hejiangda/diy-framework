@@ -35,6 +35,8 @@ func NewDemoApi() *DemoApi {
 func (api *DemoApi) Demo(c *gin.Context) {
 	configService := c.MustMake(contract.ConfigKey).(contract.Config)
 	password := configService.GetString("database.mysql.password")
+	//logService := c.MustMake(contract.LogKey).(contract.Log)
+	//logService.Info(c.Request.Context(), "hahahahaha", nil)
 	//baseFolder := appService.BaseFolder()
 	//users := api.service.GetUsers()
 	//usersDTO := UserModelsToUserDTOs(users)

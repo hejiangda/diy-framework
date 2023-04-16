@@ -8,7 +8,10 @@ import (
 	"github.com/hejiangda/diy-framework/framework/provider/config"
 	"github.com/hejiangda/diy-framework/framework/provider/distributed"
 	"github.com/hejiangda/diy-framework/framework/provider/env"
+	"github.com/hejiangda/diy-framework/framework/provider/id"
 	"github.com/hejiangda/diy-framework/framework/provider/kernel"
+	"github.com/hejiangda/diy-framework/framework/provider/log"
+	"github.com/hejiangda/diy-framework/framework/provider/trace"
 )
 
 func main() {
@@ -16,10 +19,13 @@ func main() {
 	container := framework.NewHadeContainer()
 	// 绑定App服务提供者
 	container.Bind(&app.HadeAppProvider{})
+	// 后续初始化需要绑定的服务提供者...
 	container.Bind(&env.HadeEnvProvider{})
 	container.Bind(&distributed.LocalDistributedProvider{})
 	container.Bind(&config.HadeConfigProvider{})
-	// 后续初始化需要绑定的服务提供者...
+	container.Bind(&id.HadeIDProvider{})
+	container.Bind(&trace.HadeTraceProvider{})
+	container.Bind(&log.HadeLogServiceProvider{})
 
 	// 将HTTP引擎初始化,并且作为服务提供者绑定到服务容器中
 	if engine, err := http.NewHttpEngine(); err == nil {

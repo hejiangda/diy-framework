@@ -24,9 +24,11 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
+	github.com/jonboulle/clockwork v0.4.0 // indirect
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
+	github.com/lestrrat-go/strftime v1.0.6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
@@ -44,9 +46,11 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/google/uuid v1.3.0
 	github.com/inconshreveable/mousetrap v1.1.0
+	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/rs/xid v1.5.0
 	github.com/sevlyar/go-daemon v0.1.6
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/pflag v1.0.5
