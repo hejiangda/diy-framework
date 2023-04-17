@@ -88,6 +88,8 @@ func (l *HadeLogServiceProvider) Params(c framework.Container) []interface{} {
 		}
 	}
 
+	// l.CtxFielder=func
+
 	// 定义5个参数
 	return []interface{}{c, l.Level, l.CtxFielder, l.Formatter, l.Output}
 }
