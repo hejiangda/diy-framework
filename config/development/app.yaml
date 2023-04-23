@@ -9,3 +9,5 @@ dev:
 
 path:
   middleware_folder: "./app/http/middleware"
+
+swagger: true

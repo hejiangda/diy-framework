@@ -2,6 +2,10 @@ package gin
 
 import "github.com/hejiangda/diy-framework/framework"
 
+// GetContainer 从Engine中获取container
+func (engine *Engine) GetContainer() framework.Container {
+	return engine.container
+}
 func (engine *Engine) SetContainer(container framework.Container) {
 	engine.container = container
 }

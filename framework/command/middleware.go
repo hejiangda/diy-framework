@@ -79,11 +79,23 @@ var middlewareMigrateCommand = &cobra.Command{
 				return err
 			}
 		}
+		var url string
+		{
+			prompt := &survey.Input{
+				Message: "请输入中间件仓库地址：",
+			}
+			err := survey.AskOne(prompt, &url)
+			if err != nil {
+				return err
+			}
+		}
 		// step2 : 下载git到一个目录中
 		appService := container.MustMake(contract.AppKey).(contract.App)
 
 		middlewarePath := appService.MiddlewareFolder()
-		url := "https://github.com/gin-contrib/" + repo + ".git"
+		if url == "" {
+			url = "https://github.com/gin-contrib/" + repo + ".git"
+		}
 		fmt.Println("下载中间件 gin-contrib:")
 		fmt.Println(url)
 		_, err := git.PlainClone(path.Join(middlewarePath, repo), false, &git.CloneOptions{
