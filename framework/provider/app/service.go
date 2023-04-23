@@ -137,3 +137,11 @@ func NewHadeApp(params ...interface{}) (interface{}, error) {
 func (app *HadeApp) LoadAppConfig(kv map[string]string) {
 	app.configMap = kv
 }
+
+// AppFolder 代表app目录
+func (app *HadeApp) AppFolder() string {
+	if val, ok := app.configMap["app_folder"]; ok {
+		return val
+	}
+	return filepath.Join(app.BaseFolder(), "app")
+}
